@@ -9,11 +9,16 @@ router.get("/", (req, res) => {
 });
 
 router.post("/upload", (req, res) => {
-  console.log(req.files);
-  console.log(req.params);
-  console.log(req.body);
+  const uploadedFile = req.files.photo;
+  console.log(uploadedFile);
+  // console.log(req.files.photo.name);
   res.json({
-    status: "fileupload",
+    success: true,
+    file: {
+      name: uploadedFile.name,
+      type: uploadedFile.mimetype,
+      size: `${(uploadedFile.size / 1000000).toFixed(2)}Mb`,
+    },
   });
 });
 

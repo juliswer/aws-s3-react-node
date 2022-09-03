@@ -9,12 +9,24 @@ function App() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("photo", post.photo);
+
     console.log({
       sentPost: post,
     });
+
     try {
-      const response = await axios.post("http://localhost:3000/upload", post);
-      console.log(response);
+      const response = await axios.post(
+        "http://localhost:3000/upload",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log(response.data);
     } catch (error) {
       console.log(error);
     }
