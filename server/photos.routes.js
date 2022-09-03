@@ -9,9 +9,12 @@ router.get("/", (req, res) => {
 });
 
 router.post("/upload", (req, res) => {
-    res.json({
-        status: "fileupload",
-    })
+  console.log(req.files);
+  console.log(req.params);
+  console.log(req.body);
+  res.json({
+    status: "fileupload",
+  });
 });
 
 module.exports = router;

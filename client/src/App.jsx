@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 function App() {
   const [post, setPost] = React.useState({
@@ -6,14 +7,22 @@ function App() {
     photo: null,
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(post);
+    console.log({
+      sentPost: post,
+    });
+    try {
+      const response = await axios.post("http://localhost:3000/upload", post);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="title"
@@ -25,7 +34,7 @@ function App() {
           name="photo"
           onChange={(e) => setPost({ ...post, photo: e.target.files[0] })}
         />
-        <button onClick={handleSubmit}>Upload</button>
+        <button>Upload</button>
       </form>
     </div>
   );

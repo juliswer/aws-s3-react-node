@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const photoRoutes = require("./photos.routes.js");
 
@@ -10,6 +11,8 @@ app.use(
     tempFileDir: "./uploads",
   })
 );
+
+app.use(cors());
 
 app.use(photoRoutes);
 
