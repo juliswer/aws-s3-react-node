@@ -8,6 +8,10 @@ const AWS_BUCKET_REGION = process.env.AWS_BUCKET_REGION;
 
 const client = new S3Client({
   region: AWS_BUCKET_REGION,
+  credentials: {
+    accessKeyId: AWS_PUBLIC_KEY,
+    secretAccessKey: AWS_SECRET_KEY,
+  },
 });
 
 async function uploadFile(pathFile) {
