@@ -10,13 +10,14 @@ router.get("/", (req, res) => {
 
 router.post("/upload", (req, res) => {
   try {
-    const uploadedFile = req.files.photo
+    const uploadedFile = req.files.photo;
+    console.log(uploadedFile.size);
     res.json({
       success: true,
       file: {
         name: uploadedFile.name,
         type: uploadedFile.mimetype,
-        size: `${(uploadedFile.size / 1000000).toFixed(2)}Mb`,
+        size: `${(uploadedFile.size / 1000).toFixed(2)}Kb`,
       },
     });
   } catch (error) {
