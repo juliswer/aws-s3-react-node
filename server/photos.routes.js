@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
 
 router.post("/upload", (req, res) => {
   try {
-    const uploadedFile = req.files.photo;
+    const uploadedFile = req.files.photo
     res.json({
       success: true,
       file: {
