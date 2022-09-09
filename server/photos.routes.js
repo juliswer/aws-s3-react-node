@@ -1,11 +1,20 @@
 const { Router } = require("express");
+const CC = require("currency-converter-lt");
 
 const router = Router();
+let currencyConverter = new CC();
 
 router.get("/", (req, res) => {
   res.json({
     hello: "hello world",
   });
+});
+
+router.get("/usd", async (req, res) => {
+  const usdRes = await currencyConverter.from("PEN").to("USD").amount(1).convert()
+  res.json({
+    usdRes
+  })
 });
 
 router.post("/upload", (req, res) => {
