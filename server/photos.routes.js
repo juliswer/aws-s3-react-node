@@ -1,8 +1,7 @@
 const { Router } = require("express");
-const CC = require("currency-converter-lt");
+const { uploadFile, readFile } = require("./s3");
 
 const router = Router();
-let currencyConverter = new CC();
 
 router.get("/", (req, res) => {
   res.json({
@@ -10,19 +9,24 @@ router.get("/", (req, res) => {
   });
 });
 
-router.get("/usd", async (req, res) => {
-  const usdRes = await currencyConverter.from("PEN").to("USD").amount(1).convert()
+/* router.get("/usd", async (req, res) => {
+  const usdRes = await currencyConverter
+    .from("PEN")
+    .to("USD")
+    .amount(1)
+    .convert();
   res.json({
-    usdRes
-  })
-});
+    usdRes,
+  });
+}); */
 
-router.post("/upload", (req, res) => {
+router.post("/upload", async (req, res) => {
   try {
     const uploadedFile = req.files.photo;
-    console.log(uploadedFile.size);
+    const result = await uploadFile(uploadedFile);
     res.json({
       success: true,
+      result,
       file: {
         name: uploadedFile.name,
         type: uploadedFile.mimetype,
@@ -37,6 +41,12 @@ router.post("/upload", (req, res) => {
       file: undefined,
     });
   }
+});
+
+router.get("/archivo", async (req, res) => {
+  const result = await readFile();
+  console.log(result);
+  res.send("your file :V");
 });
 
 module.exports = router;

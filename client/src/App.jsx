@@ -12,10 +12,6 @@ function App() {
     const formData = new FormData();
     formData.append("photo", post.photo);
 
-    console.log({
-      sentPost: post,
-    });
-
     try {
       const response = await axios.post(
         "http://localhost:3000/upload",
