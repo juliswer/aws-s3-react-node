@@ -19,7 +19,7 @@ const client = new S3Client({
   },
 });
 
-async function uploadFile(file) {
+async function uploadFile(fxile) {
   const stream = fs.createReadStream(file.tempFilePath);
 
   const uploadParams = {
@@ -40,11 +40,7 @@ async function readFile(fileName) {
   });
 
   const result = await client.send(command);
-
-  /* const newFile = fs.createWriteStream("./images/test.png");
-  fs.createReadStream(result.Body).pipe(newFile); */
-
-  result.Body.pipe(fs.createWriteStream("./images/newimage.png"));
+  result.Body.pipe(fs.createWriteStream("./images/" + fileName));
 }
 
 module.exports = {

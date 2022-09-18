@@ -43,10 +43,20 @@ router.post("/upload", async (req, res) => {
   }
 });
 
-router.get("/archivo", async (req, res) => {
-  const result = await readFile();
-  console.log(result);
-  res.send("your file :V");
+router.get("/archivo/:fileName", async (req, res) => {
+  try {
+    const result = await readFile(req.params.fileName);
+    res.status(200).json({
+      success: true,
+      message: "File was successfully downloaded",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
 });
 
 module.exports = router;
